@@ -117,6 +117,18 @@ access to use this app.
                 </div>
                 <video id="initVideo" playsinline="true" autoplay="" class="mirror"></video>
             </div>
+
+            <div class="init-input-container">
+                <div class="init-field">
+                    <label for="initNameInput">Name</label>
+                    <input id="initNameInput" type="text" placeholder="Your Name" maxlength="64" />
+                </div>
+                <div class="init-field">
+                    <label for="initUsnInput">USN</label>
+                    <input id="initUsnInput" type="text" placeholder="Your USN" maxlength="20" />
+                </div>
+            </div>
+
             <div class="initComands">
                 <button id="initVideoBtn" class="fas fa-video"></button>
                 <button id="initAudioBtn" class="fas fa-microphone"></button>
@@ -129,6 +141,46 @@ access to use this app.
                 <select id="initSpeakerSelect" class="form-select text-light bg-dark"></select>
             </div>
         </div>
+
+        <style>
+            .hidden {
+                display: none !important;
+            }
+            .init-input-container {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                margin: 1rem 0;
+                width: 100%;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .init-field {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                width: 100%;
+            }
+            .init-field label {
+                color: #ccc;
+                font-size: 0.9rem;
+                font-weight: 600;
+            }
+            .init-field input {
+                width: 100%;
+                padding: 0.75rem;
+                border-radius: 6px;
+                border: 1px solid #333;
+                background: #1a1a1a;
+                color: #fff;
+            }
+            .init-field input:focus {
+                border-color: #3498db;
+                outline: none;
+            }
+        </style>
 
         <!-- Add emoji to username -->
 
@@ -200,18 +252,18 @@ access to use this app.
                             SHARING
                         </div>
                         <button id="shareRoomBtn"><i class="fas fa-share-alt"></i> Share Room</button>
-                        <button id="fileShareBtn"><i class="fas fa-folder-open"></i> File sharing</button>
+                        <button id="fileShareBtn" class="hidden"><i class="fas fa-folder-open"></i> File sharing</button>
 
-                        <div class="device-menu-divider extra-menu-divider" data-group="sharing"></div>
+                        <div class="device-menu-divider extra-menu-divider hidden" data-group="sharing"></div>
 
                         <!-- RECORDING & CAPTURE -->
-                        <div class="device-menu-header extra-menu-group" data-buttons="recordStreamBtn,snapshotRoomBtn">
+                        <div class="device-menu-header extra-menu-group hidden" data-buttons="recordStreamBtn,snapshotRoomBtn">
                             RECORDING & CAPTURE
                         </div>
-                        <button id="recordStreamBtn"><i class="fas fa-record-vinyl"></i> Start Recording</button>
-                        <button id="snapshotRoomBtn"><i class="fas fa-camera-retro"></i> Snapshot</button>
+                        <button id="recordStreamBtn" class="hidden"><i class="fas fa-record-vinyl"></i> Start Recording</button>
+                        <button id="snapshotRoomBtn" class="hidden"><i class="fas fa-camera-retro"></i> Snapshot</button>
 
-                        <div class="device-menu-divider extra-menu-divider" data-group="recording"></div>
+                        <div class="device-menu-divider extra-menu-divider hidden" data-group="recording"></div>
 
                         <!-- TOOLS -->
                         <div
@@ -220,9 +272,9 @@ access to use this app.
                         >
                             TOOLS
                         </div>
-                        <button id="captionBtn"><i class="fas fa-closed-captioning"></i> Transcription</button>
+                        <button id="captionBtn" class="hidden"><i class="fas fa-closed-captioning"></i> Transcription</button>
                         <button id="whiteboardBtn"><i class="fas fa-chalkboard-teacher"></i> Whiteboard</button>
-                        <button id="documentPiPBtn"><i class="fas fa-images"></i> Document PiP</button>
+                        <button id="documentPiPBtn" class="hidden"><i class="fas fa-images"></i> Document PiP</button>
                         <button id="roomEmojiPickerBtn"><i class="fas fa-face-smile"></i> Room Emoji</button>
 
                         <div class="device-menu-divider extra-menu-divider" data-group="tools"></div>
@@ -236,7 +288,7 @@ access to use this app.
                         </div>
                         <button id="hideMeBtn"><i class="fas fa-user"></i> Hide Me</button>
                         <button id="fullScreenBtn"><i class="fas fa-expand-alt"></i> Full Screen</button>
-                        <button id="aboutBtn"><i class="fas fa-question"></i> About</button>
+                        <button id="aboutBtn" class="hidden"><i class="fas fa-question"></i> About</button>
                     </div>
                 </div>
             </div>

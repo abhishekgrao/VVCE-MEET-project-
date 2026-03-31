@@ -1780,56 +1780,109 @@ async function whoAreYou() {
         allowOutsideClick: false,
         allowEscapeKey: false,
         background: swBg,
-        title: brand.app?.name || 'MiroTalk P2P',
+        title: brand.app?.name || 'VVCE Meet',
         position: 'center',
-        input: 'text',
-        inputPlaceholder: 'Enter your email or name',
-        inputAttributes: { maxlength: 254, id: 'usernameInput' },
-        inputValue: window.localStorage.peer_name ? window.localStorage.peer_name : '',
-        html: initUser, // inject html
+        html: initUser, // inject html (containing our new inputs)
         confirmButtonText: `Join meeting`,
         customClass: { popup: 'init-modal-size' },
         showClass: { popup: 'animate__animated animate__fadeInDown' },
         hideClass: { popup: 'animate__animated animate__fadeOutUp' },
         willOpen: () => {
             elemDisplay(loadingDiv, false);
-        },
-        inputValidator: async (value) => {
-            if (!value) return 'Please enter your email or name';
+            const initNameInput = getId('initNameInput');
+            const initUsnInput = getId('initUsnInput');
 
-            // Long email or name
-            const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-            if ((isEmail && value.length > 254) || (!isEmail && value.length > 32)) {
-                return isEmail ? 'Email must be max 254 char' : 'Name must be max 32 char';
+            // Pre-fill from URL or localStorage
+            let currentName = getQueryParam('name') || window.localStorage.peer_name || '';
+            let currentUsn = '';
+
+            // If name contains (USN), split it
+            if (currentName.includes('(') && currentName.includes(')')) {
+                const parts = currentName.match(/(.*)\s\((.*)\)/);
+                if (parts && parts.length === 3) {
+                    currentName = parts[1].trim();
+                    currentUsn = parts[2].trim();
+                }
             }
 
-            // prevent xss execution itself
-            myPeerName = filterXSS(value);
+            if (initNameInput) initNameInput.value = currentName;
+            if (initUsnInput) initUsnInput.value = currentUsn;
+        },
+        preConfirm: async () => {
+            const name = getId('initNameInput').value.trim();
+            const usn = getId('initUsnInput').value.trim();
 
-            // prevent XSS injection to remote peer
+            if (!name && !usn) {
+                Swal.showValidationMessage('Please enter at least a Name or USN');
+                return false;
+            }
+
+            let finalName = '';
+            if (name && usn) {
+                finalName = `${name} (${usn})`;
+            } else if (usn) {
+                // Only USN
+                const result = await Swal.fire({
+                    title: 'Name Missing',
+                    text: `You only entered a USN. Use "${usn}" as your display name?`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No, let me add a name',
+                    background: swBg,
+                });
+                if (result.isConfirmed) {
+                    finalName = usn;
+                } else {
+                    return false;
+                }
+            } else {
+                // Only Name
+                const result = await Swal.fire({
+                    title: 'USN Missing',
+                    text: 'Entering a USN is highly recommended. Proceed without it?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Join anyway',
+                    cancelButtonText: 'No, let me add USN',
+                    background: swBg,
+                });
+                if (result.isConfirmed) {
+                    finalName = name;
+                } else {
+                    return false;
+                }
+            }
+
+            // prevent xss
+            myPeerName = filterXSS(finalName);
             if (isHtml(myPeerName)) {
-                myPeerName = '';
-                return 'Invalid name!';
+                Swal.showValidationMessage('Invalid characters detected!');
+                return false;
             }
 
             // check if peer name is already in use in the room
             if (await checkUserName()) {
-                return 'Username is already in use!';
-            } else {
-                // Hide username emoji
-                if (!usernameEmoji.classList.contains('hidden')) {
-                    usernameEmoji.classList.add('hidden');
-                }
-                window.localStorage.peer_name = myPeerName;
-                whoAreYouJoin();
+                Swal.showValidationMessage('Username is already in use!');
+                return false;
             }
+
+            window.localStorage.peer_name = myPeerName;
+            return true;
         },
-    }).then(() => {
-        playSound('addPeer');
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Hide username emoji
+            if (!usernameEmoji.classList.contains('hidden')) {
+                usernameEmoji.classList.add('hidden');
+            }
+            whoAreYouJoin();
+            playSound('addPeer');
+        }
     });
 
     // Show initUser injected into Swal html
-    initUser.classList.toggle('hidden');
+    initUser.classList.remove('hidden');
 
     // select video - audio
 
