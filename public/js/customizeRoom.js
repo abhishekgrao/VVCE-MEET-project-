@@ -14,14 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewEl = document.getElementById('crPreviewUrl');
     const copyBtn = document.getElementById('crCopy');
     const shareBtn = document.getElementById('crShare');
-    const qrWrapEl = document.getElementById('crQrWrap');
-    const qrEl = document.getElementById('crQr');
     const randomRoomBtn = document.getElementById('crRandomRoom');
 
     const roomEl = document.getElementById('room');
     const nameEl = document.getElementById('name');
-    const avatarEl = document.getElementById('avatar');
-    const tokenEl = document.getElementById('token');
+    const usnEl = document.getElementById('usn');
 
     const durationEl = document.getElementById('duration');
 
@@ -32,11 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const hideEl = document.getElementById('hide');
     const notifyEl = document.getElementById('notify');
 
-    // Reasonable defaults (matches the screenshot: audio/video on, others off)
+    // Modal elements
+    const customModal = document.getElementById('customModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalYes = document.getElementById('modalYes');
+    const modalNo = document.getElementById('modalNo');
+
+    // Reasonable defaults
     if (audioEl) audioEl.checked = true;
     if (videoEl) videoEl.checked = true;
-
-    let qrCode = null;
 
     const setError = (msg) => {
         if (!errorEl) return;
@@ -66,16 +68,38 @@ document.addEventListener('DOMContentLoaded', () => {
         shareBtn.hidden = !canWebShare;
     }
 
+    const showModal = (title, message, showCancel = true) => {
+        return new Promise((resolve) => {
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modalNo.style.display = showCancel ? 'inline-block' : 'none';
+            customModal.style.display = 'flex';
+
+            const onYes = () => {
+                cleanup();
+                resolve(true);
+            };
+            const onNo = () => {
+                cleanup();
+                resolve(false);
+            };
+            const cleanup = () => {
+                modalYes.removeEventListener('click', onYes);
+                modalNo.removeEventListener('click', onNo);
+                customModal.style.display = 'none';
+            };
+
+            modalYes.addEventListener('click', onYes);
+            modalNo.addEventListener('click', onNo);
+        });
+    };
+
     const uuidv4 = () => {
-        // Prefer native implementation when available.
-        if (typeof crypto?.randomUUID === 'function') {
-            return crypto.randomUUID();
-        }
-        // Fallback: RFC 4122 version 4 UUID using CSPRNG.
+        if (typeof crypto?.randomUUID === 'function') return crypto.randomUUID();
         const bytes = new Uint8Array(16);
         crypto.getRandomValues(bytes);
-        bytes[6] = (bytes[6] & 0x0f) | 0x40; // version 4
-        bytes[8] = (bytes[8] & 0x3f) | 0x80; // variant 10
+        bytes[6] = (bytes[6] & 0x0f) | 0x40;
+        bytes[8] = (bytes[8] & 0x3f) | 0x80;
         const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
         return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
     };
@@ -84,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const value = safe(raw);
         if (!value) return 'unlimited';
         if (value.toLowerCase() === 'unlimited') return 'unlimited';
-        // Accept HH:MM:SS format only
         const re = /^(\d{2}):(\d{2}):(\d{2})$/;
         if (!re.test(value)) {
             throw new Error('Duration must be HH:MM:SS (e.g. 00:30:00) or left empty for unlimited');
@@ -94,20 +117,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const buildJoinUrl = () => {
         const room = safe(roomEl?.value);
-        if (!room) {
-            throw new Error('Room name is required');
+        if (!room) throw new Error('Room name is required');
+
+        const nameValue = safe(nameEl?.value);
+        const usnValue = safe(usnEl?.value);
+
+        let finalName = 'random';
+        if (nameValue && usnValue) {
+            finalName = `${nameValue} (${usnValue})`;
+        } else if (nameValue) {
+            finalName = nameValue;
+        } else if (usnValue) {
+            finalName = usnValue;
         }
 
-        const name = safe(nameEl?.value) || 'random';
-        const avatarRaw = safe(avatarEl?.value);
-        const avatar = avatarRaw ? avatarRaw : '0';
-        const token = safe(tokenEl?.value);
         const duration = normalizeDuration(durationEl?.value);
 
         const url = new URL('/join', window.location.origin);
         url.searchParams.set('room', room);
-        url.searchParams.set('name', name);
-        url.searchParams.set('avatar', avatar);
+        url.searchParams.set('name', finalName);
+        url.searchParams.set('avatar', '0'); // Default to 0 as avatar is removed from UI
 
         url.searchParams.set('audio', boolToFlag(!!audioEl?.checked));
         url.searchParams.set('video', boolToFlag(!!videoEl?.checked));
@@ -118,13 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         url.searchParams.set('duration', duration);
 
-        if (token) url.searchParams.set('token', token);
-
         return url;
     };
 
     const buildJoinUrlForPreview = () => {
-        // For preview we do not hard-fail on empty room.
         const room = safe(roomEl?.value) || 'random';
         const url = new URL('/join', window.location.origin);
         if (!room) return url;
@@ -135,65 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const getThemeColor = (name, fallback) => {
-        try {
-            const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-            return value || fallback;
-        } catch {
-            return fallback;
-        }
-    };
-
-    const ensureQrCode = () => {
-        if (!qrEl) return null;
-        if (qrCode) return qrCode;
-        if (typeof window.QRCode !== 'function') return null;
-
-        // Prefer a standard dark-on-light QR for best scanning reliability.
-        const colorDark = getThemeColor('--cr-bg-color', '#000000');
-        const colorLight = getThemeColor('--cr-text', '#ffffff');
-
-        const correctLevel = window.QRCode.CorrectLevel?.M;
-
-        const options = {
-            width: 180,
-            height: 180,
-            colorDark,
-            colorLight,
-        };
-
-        if (correctLevel) {
-            options.correctLevel = correctLevel;
-        }
-
-        qrCode = new window.QRCode(qrEl, options);
-
-        return qrCode;
-    };
-
-    const updateShareAndQr = (joinUrl) => {
-        const hasValidUrl = !!joinUrl;
-
-        if (shareBtn) {
-            shareBtn.disabled = !hasValidUrl;
-        }
-
-        if (qrWrapEl) {
-            qrWrapEl.hidden = !hasValidUrl;
-        }
-
-        if (!hasValidUrl) return;
-        const qr = ensureQrCode();
-        if (!qr) return;
-
-        try {
-            qr.clear();
-            qr.makeCode(joinUrl.toString());
-        } catch {
-            // No-op: QR generation failure should not block the form.
-        }
-    };
-
     const updatePreview = () => {
         if (!previewEl) return;
         const url = buildJoinUrlForPreview();
@@ -201,13 +168,9 @@ document.addEventListener('DOMContentLoaded', () => {
         previewEl.value = room ? url.toString() : `${window.location.origin}/join?room=...`;
         if (copyBtn) copyBtn.disabled = !room;
 
-        let joinUrl = null;
-        try {
-            joinUrl = buildJoinUrl();
-        } catch {
-            joinUrl = null;
+        if (shareBtn) {
+            shareBtn.disabled = !room;
         }
-        updateShareAndQr(joinUrl);
     };
 
     const copyToClipboard = async (text) => {
@@ -215,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
             await navigator.clipboard.writeText(text);
             return;
         }
-        // Fallback
         const tmp = document.createElement('textarea');
         tmp.value = text;
         tmp.setAttribute('readonly', '');
@@ -239,10 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Live preview
     updatePreview();
 
-    const inputs = [roomEl, nameEl, avatarEl, tokenEl, audioEl, videoEl, screenEl, chatEl, hideEl, notifyEl];
+    const inputs = [roomEl, nameEl, usnEl, audioEl, videoEl, screenEl, chatEl, hideEl, notifyEl];
     inputs.forEach((el) => {
         if (!el) return;
         el.addEventListener('input', updatePreview);
@@ -270,21 +231,48 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const joinUrl = buildJoinUrl();
                 await navigator.share({
-                    title: document.title || 'MiroTalk Room',
+                    title: document.title || 'VVCE Meet',
                     url: joinUrl.toString(),
                 });
             } catch (err) {
-                // Ignore user cancellation; surface other errors.
                 const msg = err && err.name === 'AbortError' ? '' : err?.message;
                 if (msg) setError(msg);
             }
         });
     }
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         setError('');
         setStatus('');
+
+        const nameValue = safe(nameEl?.value);
+        const usnValue = safe(usnEl?.value);
+
+        // Logic: IF i enter ONLY usn ask the user that USN will become name
+        if (usnValue && !nameValue) {
+            const ok = await showModal('Notice', 'You have only entered a USN. This will be used as your display name. Is that okay?');
+            if (!ok) return;
+        }
+
+        // Logic: IF i enter ONLY name, ask USN
+        if (nameValue && !usnValue) {
+            const ok = await showModal('Missing USN', 'Entering a USN is recommended for better identification. Do you want to proceed without it?');
+            if (!ok) {
+                usnEl.focus();
+                return;
+            }
+        }
+
+        // Logic: if NO name and NO USN, we can default to random or ask
+        if (!nameValue && !usnValue) {
+             const ok = await showModal('Notice', 'No name or USN entered. You will join with a random name. Proceed?');
+             if (!ok) {
+                 nameEl.focus();
+                 return;
+             }
+        }
+
         try {
             const joinUrl = buildJoinUrl();
             window.location.href = joinUrl.toString();

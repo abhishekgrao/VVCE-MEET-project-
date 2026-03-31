@@ -71,31 +71,16 @@
                     </div>
 
                     <div class="cr-field">
-                        <label class="cr-label" for="avatar">Avatar URL</label>
+                        <label class="cr-label" for="usn">USN</label>
                         <input
-                            id="avatar"
-                            name="avatar"
-                            class="cr-input"
-                            type="url"
-                            inputmode="url"
-                            placeholder="https://..."
-                            maxlength="512"
-                        />
-                        <p class="cr-hint">Leave empty to disable avatar (uses avatar=0).</p>
-                    </div>
-
-                    <div class="cr-field">
-                        <label class="cr-label" for="token">Token</label>
-                        <input
-                            id="token"
-                            name="token"
+                            id="usn"
+                            name="usn"
                             class="cr-input"
                             type="text"
                             inputmode="text"
-                            placeholder="JWT token"
-                            maxlength="2048"
+                            placeholder="Enter your USN"
+                            maxlength="20"
                         />
-                        <p class="cr-hint">Required when Host Protected or User Auth is enabled.</p>
                     </div>
 
                     <div class="cr-toggle-grid" aria-label="Join options">
@@ -178,10 +163,6 @@
                                 </button>
                             </div>
                         </div>
-                        <div id="crQrWrap" class="cr-qr-wrap" hidden>
-                            <div id="crQr" class="cr-qr" role="img" aria-label="Join link QR code"></div>
-                            <p class="cr-hint cr-qr-hint">Scan with your camera to open the join link.</p>
-                        </div>
                         <p id="crStatus" class="cr-hint" role="status" aria-live="polite"></p>
                     </div>
 
@@ -192,7 +173,63 @@
             </section>
         </main>
 
-        <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+        <!-- Custom Modal for USN/Name Validation -->
+        <div id="customModal" class="modal-overlay" hidden>
+            <div class="modal-content">
+                <h2 id="modalTitle">Notice</h2>
+                <p id="modalMessage"></p>
+                <div class="modal-actions">
+                    <button id="modalNo" class="modal-btn secondary">Cancel</button>
+                    <button id="modalYes" class="modal-btn primary">Okay</button>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.85);
+                display: none;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                backdrop-filter: blur(5px);
+            }
+            .modal-content {
+                background: #1a1a1a;
+                padding: 2rem;
+                border-radius: 12px;
+                max-width: 400px;
+                width: 90%;
+                border: 1px solid #333;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+                text-align: center;
+                animation: modalIn 0.3s ease-out;
+            }
+            @keyframes modalIn {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .modal-content h2 { color: #fff; margin-top: 0; }
+            .modal-content p { color: #ccc; margin-bottom: 2rem; line-height: 1.5; }
+            .modal-actions { display: flex; gap: 1rem; justify-content: center; }
+            .modal-btn {
+                padding: 0.75rem 1.5rem;
+                border-radius: 6px;
+                border: none;
+                cursor: pointer;
+                font-weight: 600;
+                transition: transform 0.1s;
+            }
+            .modal-btn:active { transform: scale(0.95); }
+            .modal-btn.primary { background: #3498db; color: #fff; }
+            .modal-btn.secondary { background: #444; color: #fff; }
+        </style>
+
         <script defer src="../js/customizeRoom.js"></script>
     </body>
 </html>
