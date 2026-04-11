@@ -13880,7 +13880,7 @@ function initExitMeeting() {
  */
 function leaveRoom() {
     checkRecording();
-    surveyActive ? leaveFeedback() : redirectOnLeave();
+    redirectOnLeave();
 }
 
 /**
