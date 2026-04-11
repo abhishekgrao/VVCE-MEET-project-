@@ -1,235 +1,238 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title id="title">MiroTalk - Custom Room.</title>
-        <link id="icon" rel="shortcut icon" href="../images/logo.svg" />
-        <link id="appleTouchIcon" rel="apple-touch-icon" href="../images/logo.svg" />
 
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <title id="title">MiroTalk - Custom Room.</title>
+    <link id="icon" rel="shortcut icon" href="../images/logo.svg" />
+    <link id="appleTouchIcon" rel="apple-touch-icon" href="../images/logo.svg" />
 
-        <!-- https://ogp.me -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <meta property="og:type" content="{{OG_TYPE}}" />
-        <meta property="og:site_name" content="{{OG_SITE_NAME}}" />
-        <meta property="og:title" content="{{OG_TITLE}}" />
-        <meta property="og:description" content="{{OG_DESCRIPTION}}" />
-        <meta property="og:image" content="{{OG_IMAGE}}" />
-        <meta property="og:url" content="{{OG_URL}}" />
+    <!-- https://ogp.me -->
 
-        <link rel="stylesheet" type="text/css" href="../css/customizeRoom.css" />
+    <meta property="og:type" content="{{OG_TYPE}}" />
+    <meta property="og:site_name" content="{{OG_SITE_NAME}}" />
+    <meta property="og:title" content="{{OG_TITLE}}" />
+    <meta property="og:description" content="{{OG_DESCRIPTION}}" />
+    <meta property="og:image" content="{{OG_IMAGE}}" />
+    <meta property="og:url" content="{{OG_URL}}" />
 
-        <!-- xss (provides filterXSS) -->
-        <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
-    </head>
-    <body>
-        <a class="cr-home" href="/" aria-label="Back to home" title="Back to home">
-            <img src="../images/logo.svg" alt="MiroTalk P2P" width="32" height="32" />
-        </a>
-        <main class="cr-page">
-            <section class="cr-card" aria-label="Join a MiroTalk room">
-                <h1 class="cr-title">Join a MiroTalk Room</h1>
+    <link rel="stylesheet" type="text/css" href="../css/customizeRoom.css" />
 
-                <form id="customizeRoomForm" class="cr-form" autocomplete="off">
-                    <div class="cr-field">
-                        <label class="cr-label" for="room">Room</label>
-                        <div class="cr-input-wrap">
-                            <input
-                                id="room"
-                                name="room"
-                                class="cr-input"
-                                type="text"
-                                inputmode="text"
-                                placeholder="room123"
-                                maxlength="64"
-                                required
-                            />
-                            <button
-                                id="crRandomRoom"
-                                class="cr-input-action"
-                                type="button"
-                                aria-label="Generate random room id"
-                                title="Generate random room id"
-                            >
-                                Random
+    <!-- xss (provides filterXSS) -->
+    <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+</head>
+
+<body>
+    <a class="cr-home" href="/" aria-label="Back to home" title="Back to home">
+        <img src="../images/logo.svg" alt="MiroTalk P2P" width="32" height="32" />
+    </a>
+    <main class="cr-page">
+        <section class="cr-card" aria-label="Join a MiroTalk room">
+            <h1 class="cr-title">Join a MiroTalk Room</h1>
+
+            <form id="customizeRoomForm" class="cr-form" autocomplete="off">
+                <div class="cr-field">
+                    <label class="cr-label" for="room">Room</label>
+                    <div class="cr-input-wrap">
+                        <input id="room" name="room" class="cr-input" type="text" inputmode="text" placeholder="room123"
+                            maxlength="64" required />
+                        <button id="crRandomRoom" class="cr-input-action" type="button"
+                            aria-label="Generate random room id" title="Generate random room id">
+                            Random
+                        </button>
+                    </div>
+                </div>
+
+                <div class="cr-field">
+                    <label class="cr-label" for="name">Name</label>
+                    <input id="name" name="name" class="cr-input" type="text" inputmode="text"
+                        placeholder="Your display name" maxlength="64" />
+                </div>
+
+                <div class="cr-field">
+                    <label class="cr-label" for="usn">USN</label>
+                    <input id="usn" name="usn" class="cr-input" type="text" inputmode="text"
+                        placeholder="Enter your USN" maxlength="20" />
+                </div>
+
+                <div class="cr-toggle-grid" aria-label="Join options">
+                    <label class="cr-toggle" for="audio">
+                        <span class="cr-toggle-text">Audio</span>
+                        <span class="cr-switch-wrap">
+                            <input id="audio" name="audio" type="checkbox" />
+                            <span class="cr-switch" aria-hidden="true"></span>
+                        </span>
+                    </label>
+
+                    <label class="cr-toggle" for="video">
+                        <span class="cr-toggle-text">Video</span>
+                        <span class="cr-switch-wrap">
+                            <input id="video" name="video" type="checkbox" />
+                            <span class="cr-switch" aria-hidden="true"></span>
+                        </span>
+                    </label>
+
+                    <label class="cr-toggle" for="screen">
+                        <span class="cr-toggle-text">Screen</span>
+                        <span class="cr-switch-wrap">
+                            <input id="screen" name="screen" type="checkbox" />
+                            <span class="cr-switch" aria-hidden="true"></span>
+                        </span>
+                    </label>
+
+                    <label class="cr-toggle" for="chat">
+                        <span class="cr-toggle-text">Chat</span>
+                        <span class="cr-switch-wrap">
+                            <input id="chat" name="chat" type="checkbox" />
+                            <span class="cr-switch" aria-hidden="true"></span>
+                        </span>
+                    </label>
+
+                    <label class="cr-toggle" for="hide">
+                        <span class="cr-toggle-text">Hide me</span>
+                        <span class="cr-switch-wrap">
+                            <input id="hide" name="hide" type="checkbox" />
+                            <span class="cr-switch" aria-hidden="true"></span>
+                        </span>
+                    </label>
+
+                    <label class="cr-toggle" for="notify">
+                        <span class="cr-toggle-text">Share</span>
+                        <span class="cr-switch-wrap">
+                            <input id="notify" name="notify" type="checkbox" />
+                            <span class="cr-switch" aria-hidden="true"></span>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="cr-field">
+                    <label class="cr-label" for="duration">Duration (optional)</label>
+                    <input id="duration" name="duration" class="cr-input" type="text" inputmode="numeric"
+                        placeholder="00:30:00" pattern="^\d{2}:\d{2}:\d{2}$" maxlength="8" />
+                    <p class="cr-hint">Format HH:MM:SS. Leave empty for unlimited (uses duration=unlimited).</p>
+                </div>
+
+                <div class="cr-field">
+                    <label class="cr-label" for="crPreviewUrl">Join link</label>
+                    <div class="cr-preview-row">
+                        <input id="crPreviewUrl" class="cr-input cr-preview" type="text" readonly />
+                        <div class="cr-actions" aria-label="Link actions">
+                            <button id="crCopy" class="cr-copy" type="button" aria-label="Copy join link">
+                                <span class="cr-copy-icon" aria-hidden="true">⧉</span>
+                                <span>Copy</span>
+                            </button>
+                            <button id="crShare" class="cr-copy" type="button" aria-label="Share join link" hidden>
+                                <span class="cr-copy-icon" aria-hidden="true">↗</span>
+                                <span>Share</span>
                             </button>
                         </div>
                     </div>
-
-                    <div class="cr-field">
-                        <label class="cr-label" for="name">Name</label>
-                        <input
-                            id="name"
-                            name="name"
-                            class="cr-input"
-                            type="text"
-                            inputmode="text"
-                            placeholder="Your display name"
-                            maxlength="64"
-                        />
-                    </div>
-
-                    <div class="cr-field">
-                        <label class="cr-label" for="usn">USN</label>
-                        <input
-                            id="usn"
-                            name="usn"
-                            class="cr-input"
-                            type="text"
-                            inputmode="text"
-                            placeholder="Enter your USN"
-                            maxlength="20"
-                        />
-                    </div>
-
-                    <div class="cr-toggle-grid" aria-label="Join options">
-                        <label class="cr-toggle" for="audio">
-                            <span class="cr-toggle-text">Audio</span>
-                            <span class="cr-switch-wrap">
-                                <input id="audio" name="audio" type="checkbox" />
-                                <span class="cr-switch" aria-hidden="true"></span>
-                            </span>
-                        </label>
-
-                        <label class="cr-toggle" for="video">
-                            <span class="cr-toggle-text">Video</span>
-                            <span class="cr-switch-wrap">
-                                <input id="video" name="video" type="checkbox" />
-                                <span class="cr-switch" aria-hidden="true"></span>
-                            </span>
-                        </label>
-
-                        <label class="cr-toggle" for="screen">
-                            <span class="cr-toggle-text">Screen</span>
-                            <span class="cr-switch-wrap">
-                                <input id="screen" name="screen" type="checkbox" />
-                                <span class="cr-switch" aria-hidden="true"></span>
-                            </span>
-                        </label>
-
-                        <label class="cr-toggle" for="chat">
-                            <span class="cr-toggle-text">Chat</span>
-                            <span class="cr-switch-wrap">
-                                <input id="chat" name="chat" type="checkbox" />
-                                <span class="cr-switch" aria-hidden="true"></span>
-                            </span>
-                        </label>
-
-                        <label class="cr-toggle" for="hide">
-                            <span class="cr-toggle-text">Hide me</span>
-                            <span class="cr-switch-wrap">
-                                <input id="hide" name="hide" type="checkbox" />
-                                <span class="cr-switch" aria-hidden="true"></span>
-                            </span>
-                        </label>
-
-                        <label class="cr-toggle" for="notify">
-                            <span class="cr-toggle-text">Share</span>
-                            <span class="cr-switch-wrap">
-                                <input id="notify" name="notify" type="checkbox" />
-                                <span class="cr-switch" aria-hidden="true"></span>
-                            </span>
-                        </label>
-                    </div>
-
-                    <div class="cr-field">
-                        <label class="cr-label" for="duration">Duration (optional)</label>
-                        <input
-                            id="duration"
-                            name="duration"
-                            class="cr-input"
-                            type="text"
-                            inputmode="numeric"
-                            placeholder="00:30:00"
-                            pattern="^\d{2}:\d{2}:\d{2}$"
-                            maxlength="8"
-                        />
-                        <p class="cr-hint">Format HH:MM:SS. Leave empty for unlimited (uses duration=unlimited).</p>
-                    </div>
-
-                    <div class="cr-field">
-                        <label class="cr-label" for="crPreviewUrl">Join link</label>
-                        <div class="cr-preview-row">
-                            <input id="crPreviewUrl" class="cr-input cr-preview" type="text" readonly />
-                            <div class="cr-actions" aria-label="Link actions">
-                                <button id="crCopy" class="cr-copy" type="button" aria-label="Copy join link">
-                                    <span class="cr-copy-icon" aria-hidden="true">⧉</span>
-                                    <span>Copy</span>
-                                </button>
-                                <button id="crShare" class="cr-copy" type="button" aria-label="Share join link" hidden>
-                                    <span class="cr-copy-icon" aria-hidden="true">↗</span>
-                                    <span>Share</span>
-                                </button>
-                            </div>
-                        </div>
-                        <p id="crStatus" class="cr-hint" role="status" aria-live="polite"></p>
-                    </div>
-
-                    <p id="crError" class="cr-error" hidden></p>
-
-                    <button class="cr-submit" type="submit">Join room</button>
-                </form>
-            </section>
-        </main>
-
-        <!-- Custom Modal for USN/Name Validation -->
-        <div id="customModal" class="modal-overlay" hidden>
-            <div class="modal-content">
-                <h2 id="modalTitle">Notice</h2>
-                <p id="modalMessage"></p>
-                <div class="modal-actions">
-                    <button id="modalNo" class="modal-btn secondary">Cancel</button>
-                    <button id="modalYes" class="modal-btn primary">Okay</button>
+                    <p id="crStatus" class="cr-hint" role="status" aria-live="polite"></p>
                 </div>
+
+                <p id="crError" class="cr-error" hidden></p>
+
+                <button class="cr-submit" type="submit">Join room</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Custom Modal for USN/Name Validation -->
+    <div id="customModal" class="modal-overlay" hidden>
+        <div class="modal-content">
+            <h2 id="modalTitle">Notice</h2>
+            <p id="modalMessage"></p>
+            <div class="modal-actions">
+                <button id="modalNo" class="modal-btn secondary">Cancel</button>
+                <button id="modalYes" class="modal-btn primary">Okay</button>
             </div>
         </div>
+    </div>
 
-        <style>
-            .modal-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.85);
-                display: none;
-                align-items: center;
-                justify-content: center;
-                z-index: 1000;
-                backdrop-filter: blur(5px);
-            }
-            .modal-content {
-                background: #1a1a1a;
-                padding: 2rem;
-                border-radius: 12px;
-                max-width: 400px;
-                width: 90%;
-                border: 1px solid #333;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-                text-align: center;
-                animation: modalIn 0.3s ease-out;
-            }
-            @keyframes modalIn {
-                from { opacity: 0; transform: translateY(-20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-            .modal-content h2 { color: #fff; margin-top: 0; }
-            .modal-content p { color: #ccc; margin-bottom: 2rem; line-height: 1.5; }
-            .modal-actions { display: flex; gap: 1rem; justify-content: center; }
-            .modal-btn {
-                padding: 0.75rem 1.5rem;
-                border-radius: 6px;
-                border: none;
-                cursor: pointer;
-                font-weight: 600;
-                transition: transform 0.1s;
-            }
-            .modal-btn:active { transform: scale(0.95); }
-            .modal-btn.primary { background: #3498db; color: #fff; }
-            .modal-btn.secondary { background: #444; color: #fff; }
-        </style>
+    <style>
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
 
-        <script defer src="../js/customizeRoom.js"></script>
-    </body>
+        .modal-content {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #333;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: modalIn 0.3s ease-out;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-content h2 {
+            color: #fff;
+            margin-top: 0;
+        }
+
+        .modal-content p {
+            color: #ccc;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.1s;
+        }
+
+        .modal-btn:active {
+            transform: scale(0.95);
+        }
+
+        .modal-btn.primary {
+            background: #3498db;
+            color: #fff;
+        }
+
+        .modal-btn.secondary {
+            background: #444;
+            color: #fff;
+        }
+    </style>
+
+    <script defer src="../js/customizeRoom.js"></script>
+</body>
+
 </html>
