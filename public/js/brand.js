@@ -1,7 +1,7 @@
 'use strict';
 
 // Brand
-const brandDataKey = 'brandDataP2P';
+const brandDataKey = 'brandDataVVCE';
 const brandData = window.sessionStorage.getItem(brandDataKey);
 
 // Html pages
@@ -70,17 +70,17 @@ let brand = {
         newCallRoomTitle: 'Pick name. <br />Share URL. <br />Start conference.',
         newCallRoomDescription:
             "Each room has its disposable URL. Just pick a room name and share your custom URL. It's that easy.",
-        loginTitle: 'vvce-meet - Host Protected login required.',
+        loginTitle: 'vvce-meet',
         loginHeading: 'Welcome back',
         loginDescription: 'Enter your credentials to continue.',
         loginButtonLabel: 'Login',
         joinRoomTitle: 'Pick name.<br />Share URL.<br />Start conference.',
         joinRoomButtonLabel: 'JOIN ROOM',
         clientTitle: 'vvce-meet',
-        privacyPolicyTitle: 'vvce-meet - privacy and policy.',
-        stunTurnTitle: 'Test Stun/Turn Servers.',
-        notFoundTitle: 'vvce-meet - 404 Page not found.',
-        waitingRoomTitle: 'vvce-meet - Waiting for host to start the meeting',
+        privacyPolicyTitle: 'vvce-meet',
+        stunTurnTitle: 'vvce-meet',
+        notFoundTitle: 'vvce-meet',
+        waitingRoomTitle: 'vvce-meet',
         waitingRoomHeading: 'Waiting for host...',
         waitingRoomDescription:
             "The meeting hasn't started yet.<br />You'll join automatically when the host opens the room.",
