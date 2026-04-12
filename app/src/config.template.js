@@ -277,7 +277,7 @@ module.exports = {
             shortcutIcon: '../images/logo.svg',
             appleTouchIcon: '../images/logo.svg',
             landingTitle: 'MiroTalk a Free Secure Video Calls, Chat & Screen Sharing.',
-            newCallTitle: 'MiroTalk a Free Secure Video Calls, Chat & Screen Sharing.',
+            newCallTitle: 'vvce-meet',
             newCallRoomTitle: 'Pick name. <br />Share URL. <br />Start conference.',
             newCallRoomDescription:
                 "Each room has its disposable URL. Just pick a room name and share your custom URL. It's that easy.",
@@ -287,7 +287,7 @@ module.exports = {
             loginButtonLabel: 'Login',
             joinRoomTitle: 'Pick name.<br />Share URL.<br />Start conference.',
             joinRoomButtonLabel: 'JOIN ROOM',
-            clientTitle: 'MiroTalk WebRTC Video call, Chat Room & Screen Sharing.',
+            clientTitle: 'vvce-meet',
             privacyPolicyTitle: 'MiroTalk - privacy and policy.',
             stunTurnTitle: 'Test Stun/Turn Servers.',
             notFoundTitle: 'MiroTalk - 404 Page not found.',

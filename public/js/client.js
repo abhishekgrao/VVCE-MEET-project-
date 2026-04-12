@@ -713,7 +713,7 @@ let isPeerAuthEnabled = false; // Username and Password required in the URL para
 
 // survey
 let surveyActive = true; // when leaving the room give a feedback, if false will be redirected to newcall page
-let surveyURL = 'https://www.questionpro.com/t/AUs7VZq00L';
+let surveyURL = 'www.google.com';
 
 // Redirect on leave room
 let redirectActive = false;
@@ -13906,10 +13906,10 @@ function leaveFeedback() {
         imageUrl: images.feedback,
         position: 'top',
         title: 'Leave a feedback',
-        text: 'Do you want to rate your MiroTalk experience?',
-        confirmButtonText: `Yes`,
-        denyButtonText: `No`,
-        cancelButtonText: `Cancel`,
+        text: 'THANKS FOR EXPERIENCING VVCE-MEET, WANT TO LEAVE THE ROOM?',
+        confirmButtonText: `THANKS`,
+        denyButtonText: `HAVE A NICE DAY`,
+        cancelButtonText: `LOVE VVCE`,
         showClass: { popup: 'animate__animated animate__fadeInDown' },
         hideClass: { popup: 'animate__animated animate__fadeOutUp' },
     }).then((result) => {

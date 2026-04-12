@@ -54,7 +54,7 @@ let brand = {
     app: {
         language: 'en',
         name: 'vvce-meet',
-        title: 'vvce-meet<br />Free browser based Real-time video calls.<br />Simple, Secure, Fast.',
+        title: 'vvce-meet',
         description:
             'Start your next video call with a single click. No download, plug-in, or login is required. Just get straight to talking, messaging, and sharing your screen.',
         joinDescription: 'Pick a room name.<br />How about this one?',
@@ -65,8 +65,8 @@ let brand = {
     site: {
         shortcutIcon: '../images/logo.svg',
         appleTouchIcon: '../images/logo.svg',
-        landingTitle: 'vvce-meet a Free Secure Video Calls, Chat & Screen Sharing.',
-        newCallTitle: 'vvce-meet a Free Secure Video Calls, Chat & Screen Sharing.',
+        landingTitle: 'vvce-meet',
+        newCallTitle: 'vvce-meet',
         newCallRoomTitle: 'Pick name. <br />Share URL. <br />Start conference.',
         newCallRoomDescription:
             "Each room has its disposable URL. Just pick a room name and share your custom URL. It's that easy.",
@@ -76,7 +76,7 @@ let brand = {
         loginButtonLabel: 'Login',
         joinRoomTitle: 'Pick name.<br />Share URL.<br />Start conference.',
         joinRoomButtonLabel: 'JOIN ROOM',
-        clientTitle: 'vvce-meet WebRTC Video call, Chat Room & Screen Sharing.',
+        clientTitle: 'vvce-meet',
         privacyPolicyTitle: 'vvce-meet - privacy and policy.',
         stunTurnTitle: 'Test Stun/Turn Servers.',
         notFoundTitle: 'vvce-meet - 404 Page not found.',
