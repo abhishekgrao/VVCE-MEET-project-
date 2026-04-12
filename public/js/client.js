@@ -13894,28 +13894,23 @@ function exitRoom() {
  * Ask for feedback when room exit
  */
 function leaveFeedback() {
+    playSound('newMessage');
     Swal.fire({
         allowOutsideClick: false,
         allowEscapeKey: false,
-        showDenyButton: true,
+        background: swBg,
+        position: 'top',
+        title: 'THANKS FOR EXPERIENCING VVCE-MEET',
+        text: 'WANT TO LEAVE THE ROOM?',
         showCancelButton: true,
         confirmButtonColor: 'green',
-        denyButtonColor: 'red',
-        cancelButtonColor: 'gray',
-        background: swBg,
-        imageUrl: images.feedback,
-        position: 'top',
-        title: 'Leave a feedback',
-        text: 'THANKS FOR EXPERIENCING VVCE-MEET, WANT TO LEAVE THE ROOM?',
-        confirmButtonText: `THANKS`,
-        denyButtonText: `HAVE A NICE DAY`,
-        cancelButtonText: `LOVE VVCE`,
+        cancelButtonColor: 'red',
+        confirmButtonText: 'YES',
+        cancelButtonText: 'NO',
         showClass: { popup: 'animate__animated animate__fadeInDown' },
         hideClass: { popup: 'animate__animated animate__fadeOutUp' },
     }).then((result) => {
         if (result.isConfirmed) {
-            openURL(surveyURL);
-        } else if (result.isDenied) {
             redirectOnLeave();
         }
     });
