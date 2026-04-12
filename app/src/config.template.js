@@ -255,8 +255,8 @@ module.exports = {
         htmlInjection: true,
         app: {
             language: 'en', // https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes
-            name: 'MiroTalk',
-            title: '<h1>MiroTalk</h1>Free browser based Real-time video calls.<br />Simple, Secure, Fast.',
+            name: 'vvce-meet',
+            title: 'vvce-meet',
             description:
                 'Start your next video call with a single click. No download, plug-in, or login is required. Just get straight to talking, messaging, and sharing your screen.',
             joinDescription: 'Pick a room name.<br />How about this one?',
@@ -266,32 +266,32 @@ module.exports = {
         },
         og: {
             type: 'app-webrtc',
-            siteName: 'MiroTalk',
+            siteName: 'vvce-meet',
             title: 'Click the link to make a call.',
             description:
-                'MiroTalk calling provides real-time HD quality and latency simply not available with traditional technology.',
+                'vvce-meet calling provides real-time HD quality and latency simply not available with traditional technology.',
             image: 'https://p2p.mirotalk.com/images/preview.png',
             url: 'https://p2p.mirotalk.com',
         },
         site: {
             shortcutIcon: '../images/logo.svg',
             appleTouchIcon: '../images/logo.svg',
-            landingTitle: 'MiroTalk a Free Secure Video Calls, Chat & Screen Sharing.',
+            landingTitle: 'vvce-meet',
             newCallTitle: 'vvce-meet',
             newCallRoomTitle: 'Pick name. <br />Share URL. <br />Start conference.',
             newCallRoomDescription:
                 "Each room has its disposable URL. Just pick a room name and share your custom URL. It's that easy.",
-            loginTitle: 'MiroTalk - Host Protected login required.',
+            loginTitle: 'vvce-meet',
             loginHeading: 'Welcome back',
             loginDescription: 'Enter your credentials to continue.',
             loginButtonLabel: 'Login',
             joinRoomTitle: 'Pick name.<br />Share URL.<br />Start conference.',
             joinRoomButtonLabel: 'JOIN ROOM',
             clientTitle: 'vvce-meet',
-            privacyPolicyTitle: 'MiroTalk - privacy and policy.',
+            privacyPolicyTitle: 'vvce-meet',
             stunTurnTitle: 'Test Stun/Turn Servers.',
-            notFoundTitle: 'MiroTalk - 404 Page not found.',
-            waitingRoomTitle: 'MiroTalk - Waiting for host to start the meeting',
+            notFoundTitle: 'vvce-meet',
+            waitingRoomTitle: 'vvce-meet',
             waitingRoomHeading: 'Waiting for host...',
             waitingRoomDescription:
                 "The meeting hasn't started yet.<br />You'll join automatically when the host opens the room.",
@@ -317,7 +317,7 @@ module.exports = {
             footer: true,
         },
         about: {
-            imageUrl: '../images/mirotalk-logo.gif',
+            imageUrl: '../images/logo.svg',
             title: `WebRTC P2P v${packageJson.version}`,
             html: `
                 <button 
