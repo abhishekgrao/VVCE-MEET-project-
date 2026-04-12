@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const joinUrl = buildJoinUrl();
                 await navigator.share({
-                    title: document.title || 'VVCE Meet',
+                    title: document.title || 'vvce-meet',
                     url: joinUrl.toString(),
                 });
             } catch (err) {

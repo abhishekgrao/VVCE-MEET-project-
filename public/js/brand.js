@@ -53,8 +53,8 @@ const footer = document.getElementById('footer');
 let brand = {
     app: {
         language: 'en',
-        name: 'VVCE Meet',
-        title: 'VVCE Meet<br />Free browser based Real-time video calls.<br />Simple, Secure, Fast.',
+        name: 'vvce-meet',
+        title: 'vvce-meet<br />Free browser based Real-time video calls.<br />Simple, Secure, Fast.',
         description:
             'Start your next video call with a single click. No download, plug-in, or login is required. Just get straight to talking, messaging, and sharing your screen.',
         joinDescription: 'Pick a room name.<br />How about this one?',
@@ -65,22 +65,22 @@ let brand = {
     site: {
         shortcutIcon: '../images/logo.svg',
         appleTouchIcon: '../images/logo.svg',
-        landingTitle: 'VVCE Meet a Free Secure Video Calls, Chat & Screen Sharing.',
-        newCallTitle: 'VVCE Meet a Free Secure Video Calls, Chat & Screen Sharing.',
+        landingTitle: 'vvce-meet a Free Secure Video Calls, Chat & Screen Sharing.',
+        newCallTitle: 'vvce-meet a Free Secure Video Calls, Chat & Screen Sharing.',
         newCallRoomTitle: 'Pick name. <br />Share URL. <br />Start conference.',
         newCallRoomDescription:
             "Each room has its disposable URL. Just pick a room name and share your custom URL. It's that easy.",
-        loginTitle: 'VVCE Meet - Host Protected login required.',
+        loginTitle: 'vvce-meet - Host Protected login required.',
         loginHeading: 'Welcome back',
         loginDescription: 'Enter your credentials to continue.',
         loginButtonLabel: 'Login',
         joinRoomTitle: 'Pick name.<br />Share URL.<br />Start conference.',
         joinRoomButtonLabel: 'JOIN ROOM',
-        clientTitle: 'VVCE Meet WebRTC Video call, Chat Room & Screen Sharing.',
-        privacyPolicyTitle: 'VVCE Meet - privacy and policy.',
+        clientTitle: 'vvce-meet WebRTC Video call, Chat Room & Screen Sharing.',
+        privacyPolicyTitle: 'vvce-meet - privacy and policy.',
         stunTurnTitle: 'Test Stun/Turn Servers.',
-        notFoundTitle: 'VVCE Meet - 404 Page not found.',
-        waitingRoomTitle: 'VVCE Meet - Waiting for host to start the meeting',
+        notFoundTitle: 'vvce-meet - 404 Page not found.',
+        waitingRoomTitle: 'vvce-meet - Waiting for host to start the meeting',
         waitingRoomHeading: 'Waiting for host...',
         waitingRoomDescription:
             "The meeting hasn't started yet.<br />You'll join automatically when the host opens the room.",
@@ -110,7 +110,7 @@ let brand = {
         title: 'WebRTC P2P v1.7.68',
         html: `
             <hr />
-            <span>&copy; 2026 VVCE Meet, all rights reserved</span>
+            <span>&copy; 2026 vvce-meet, all rights reserved</span>
             <hr />
         `,
     },
