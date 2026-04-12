@@ -373,14 +373,14 @@ module.exports = {
                     connectText: 'connect in < 5 seconds',
                     onlineText: 'We are online',
                     offlineText: 'We are offline',
-                    poweredBy: 'Powered by MiroTalk',
+                    poweredBy: 'Powered by vvce-meet',
                 },
             },
         },
         //...
     },
     /**
-     * Configuration for controlling the visibility of buttons in the MiroTalk P2P client.
+     * Configuration for controlling the visibility of buttons in the vvce-meet P2P client.
      * Set properties to true to show the corresponding buttons, or false to hide them.
      * captionBtn, showSwapCameraBtn, showScreenShareBtn, showFullScreenBtn, showVideoPipBtn, showDocumentPipBtn -> (auto-detected).
      */

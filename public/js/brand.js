@@ -162,7 +162,7 @@ async function initBrand() {
  * Get brand from server
  */
 async function getBrand() {
-    if (brandData) {
+    if (false) { // Temporarily disabled cache to force re-branding
         setBrand(JSON.parse(brandData));
     } else {
         try {
